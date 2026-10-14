@@ -95,6 +95,8 @@ uv run python -m model_inference.predict_file \
 
 `>` Solo cargo artefactos de confianza: validar el diccionario después de `joblib.load` comprueba compatibilidad, pero no protege frente a un pickle malicioso. Esta limitación está descrita en la [documentación oficial de Joblib](https://joblib.readthedocs.io/en/stable/generated/joblib.load.html).
 
+`>>` He repetido `uv sync --frozen`, los 30 tests y Ruff desde un clone limpio del commit `fbc26a1`, sin el modelo dentro del repositorio. El CLI, usando `--model` con el mismo artefacto externo, reproduce exactamente las cinco predicciones.
+
 `=>` La práctica queda implementada y comprobada localmente. La ejecución tras clonar depende del modelo distribuido aparte por el profesor; las pruebas automatizadas no dependen de él.
 
 ## Relación entre requisitos y entrega
