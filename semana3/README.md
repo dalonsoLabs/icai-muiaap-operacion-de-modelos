@@ -1,5 +1,8 @@
 # Operación de Modelos — MUIAAp
 
+**Mi entrega de la práctica 3:** [MEMORIA_PRACTICA_3.md](MEMORIA_PRACTICA_3.md),
+con el desarrollo, el lienzo, el notebook ejecutado y las comprobaciones del módulo.
+
 Material reproducible para las clases de Operación de Modelos del Máster
 Universitario en Inteligencia Artificial Aplicada. Las prácticas usan `uv`,
 Pydantic y pruebas automatizadas para avanzar de un experimento a un módulo de
