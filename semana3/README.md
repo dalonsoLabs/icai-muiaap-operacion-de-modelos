@@ -1,6 +1,6 @@
 # Operación de Modelos — MUIAAp
 
-**Mi entrega de la práctica 3:** [DESARROLLO.md](DESARROLLO.md),
+**Mi entrega de la práctica 3:** [REPORT.md](REPORT.md),
 con el desarrollo, el lienzo, el notebook ejecutado y las comprobaciones del módulo.
 
 Material reproducible para las clases de Operación de Modelos del Máster
@@ -69,4 +69,4 @@ El entorno del starter importa mi implementación de `src/model_inference`.
 La evidencia de la clase 1 está en el notebook y su
 [exportación HTML con resultados](entrega/01-inferencia-y-contratos.html).
 El enunciado acepta «captura o exportación»; la clase 2 entrega código, tests,
-CSV y nota técnica. El proceso está explicado en [DESARROLLO.md](DESARROLLO.md).
+CSV y nota técnica. El proceso está explicado en [REPORT.md](REPORT.md).

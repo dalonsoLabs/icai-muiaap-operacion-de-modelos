@@ -148,4 +148,4 @@ CSV → solicitud validada → preprocesado → vector de 11 valores
 
 Implemento primero `contracts.py` para validar, después `preprocess.py` para ordenar, luego `inference.py` para cargar y predecir y, por último, `predict_file.py` para coordinar archivos. Mantengo esas responsabilidades separadas para poder reutilizar la inferencia sin depender de un CSV.
 
-He completado y ejecutado el [notebook de la clase 1](01-inferencia-y-contratos-alumno.ipynb). La explicación de la clase 2 y su ejecución real están en [DESARROLLO.md](../../../../../../DESARROLLO.md).
+He completado y ejecutado el [notebook de la clase 1](01-inferencia-y-contratos-alumno.ipynb). La explicación de la clase 2 y su ejecución real están en [REPORT.md](../../../../../../REPORT.md).

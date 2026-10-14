@@ -1,4 +1,4 @@
-# Desarrollo de la práctica 3 — Inferencia y contratos
+# Informe de la práctica 3 — Inferencia y contratos
 
 Daniel Alonso · Operación de Modelos · 14/10/2026
 
