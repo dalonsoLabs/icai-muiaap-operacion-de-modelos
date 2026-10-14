@@ -1,6 +1,6 @@
 # Práctica 3 — Módulo local de inferencia de vino
 
-He completado los cuatro módulos del starter manteniendo el contrato del profesor. La explicación de cómo lo he realizado está en [MEMORIA_PRACTICA_3.md](../../../../../../../MEMORIA_PRACTICA_3.md), junto con el lienzo de la clase 1 y los resultados reales.
+He completado los cuatro módulos del starter manteniendo el contrato del profesor. La explicación de cómo lo he realizado está en [DESARROLLO.md](../../../../../../../DESARROLLO.md), junto con el lienzo de la clase 1 y los resultados reales.
 
 ## Ejecución
 

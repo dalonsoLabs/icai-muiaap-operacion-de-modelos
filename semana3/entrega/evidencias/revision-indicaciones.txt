@@ -1,0 +1,30 @@
+Revisión de indicaciones de la práctica 3 · 14/10/2026
+16 README versionados revisados:
+semana3/README.md
+semana3/assets/03-wine-quality/README.md
+semana3/modules/03-inference-contracts/README.md
+semana3/modules/03-inference-contracts/examples/reusable-inference/README.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.01-contract-and-preprocess-canvas/explainer/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.01-contract-and-preprocess-canvas/problem/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.01-contract-and-preprocess-canvas/solution/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/explainer/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/README.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/assets/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/solution/readme.md
+semana3/modules/03-inference-contracts/exercises/01-local-inference/readme.md
+semana3/modules/03-inference-contracts/sessions/01-inferencia-contratos/README.md
+semana3/modules/03-inference-contracts/sessions/02-modulo-inferencia-local/README.md
+semana3/modules/03-inference-contracts/solutions/01.02-wine-quality-inference-module/README.md
+README general: README.md
+Guiones: class-1-practices.md y class-2-workshop.md
+Assignments: assignments/semana03_clase01_assignment.pdf y assignments/semana03_clase02_assignment.pdf
+Notebook de alumnado: sección Entrega del original en b85a4f4.
+Formato admitido: captura o exportación. Guion de clase 1: foto o enlace al lienzo.
+Clase 2: starter completado, tests, CSV de cinco filas y nota técnica.
+Comprobación docente independiente realizada desde semana3/:
+uv sync --frozen: correcto.
+uv run pytest: 11 passed in 19.18s.
+uv run ruff check modules/03-inference-contracts/solutions: All checks passed!
+uv run ruff format --check modules/03-inference-contracts/solutions: 9 files already formatted.
+Estos comandos comprueban la referencia docente; no se utilizan como prueba de mi implementación.

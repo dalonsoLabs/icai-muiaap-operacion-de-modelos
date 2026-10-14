@@ -1,0 +1,91 @@
+Comprobación retrospectiva del starter original, sin modificar la entrega.
+Commit del profesor: b85a4f4.
+$ uv sync --frozen
+exit_code=0
+$ uv run pytest --tb=short
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-8.4.2, pluggy-1.6.0
+rootdir: /private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter
+configfile: pyproject.toml
+testpaths: tests
+collected 11 items
+
+tests/test_inference_components.py F                                     [  9%]
+tests/test_predict_file.py FFFFFFFFFF                                    [100%]
+
+=================================== FAILURES ===================================
+___________________ test_preprocess_preserves_feature_order ____________________
+tests/test_inference_components.py:2: in test_preprocess_preserves_feature_order
+    from model_inference.contracts import WineQualityRequest
+E   ImportError: cannot import name 'WineQualityRequest' from 'model_inference.contracts' (/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/semana3/modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/src/model_inference/contracts.py)
+_____________ test_predict_file_writes_predictions_for_kaggle_rows _____________
+tests/test_predict_file.py:132: in test_predict_file_writes_predictions_for_kaggle_rows
+    with output_path.open(newline="", encoding="utf-8") as source:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Users/dalonsogomez/.local/share/uv/python/cpython-3.13.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/pytest-of-dalonsogomez/pytest-15/test_predict_file_writes_predi0/predictions.csv'
+_________________ test_predict_file_writes_all_requested_rows __________________
+tests/test_predict_file.py:156: in test_predict_file_writes_all_requested_rows
+    with output_path.open(newline="", encoding="utf-8") as source:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Users/dalonsogomez/.local/share/uv/python/cpython-3.13.13-macos-aarch64-none/lib/python3.13/pathlib/_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/pytest-of-dalonsogomez/pytest-15/test_predict_file_writes_all_r0/predictions.csv'
+_______________ test_predict_file_rejects_an_unknown_csv_column ________________
+tests/test_predict_file.py:177: in test_predict_file_rejects_an_unknown_csv_column
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_u0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+______________ test_predict_file_rejects_a_missing_required_field ______________
+tests/test_predict_file.py:191: in test_predict_file_rejects_a_missing_required_field
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_a_mi0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+_______________ test_predict_file_rejects_an_out_of_range_field ________________
+tests/test_predict_file.py:205: in test_predict_file_rejects_an_out_of_range_field
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_o0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+________ test_predict_file_leaves_no_output_when_a_later_row_is_invalid ________
+tests/test_predict_file.py:221: in test_predict_file_leaves_no_output_when_a_later_row_is_invalid
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_leaves_no_ou0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+___________ test_predict_file_rejects_an_invalid_prediction_category ___________
+tests/test_predict_file.py:235: in test_predict_file_rejects_an_invalid_prediction_category
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_i0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+____________ test_predict_file_rejects_an_incomplete_model_artifact ____________
+tests/test_predict_file.py:255: in test_predict_file_rejects_an_incomplete_model_artifact
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_i1/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+_________________ test_predict_file_rejects_an_empty_sample_id _________________
+tests/test_predict_file.py:269: in test_predict_file_rejects_an_empty_sample_id
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_e0/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+___________ test_predict_file_rejects_an_incompatible_model_artifact ___________
+tests/test_predict_file.py:292: in test_predict_file_rejects_an_incompatible_model_artifact
+    assert completed.returncode == 2
+E   AssertionError: assert 0 == 2
+E    +  where 0 = CompletedProcess(args=['/private/var/folders/rn/r1yjqxm14nn4r3ybwv22z0sr0000gn/T/mlops-s3-starter-original-szaddsy5/se...pytest-of-dalonsogomez/pytest-15/test_predict_file_rejects_an_i2/predictions.csv'], returncode=0, stdout='', stderr='').returncode
+=========================== short test summary info ============================
+FAILED tests/test_inference_components.py::test_preprocess_preserves_feature_order
+FAILED tests/test_predict_file.py::test_predict_file_writes_predictions_for_kaggle_rows
+FAILED tests/test_predict_file.py::test_predict_file_writes_all_requested_rows
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_unknown_csv_column
+FAILED tests/test_predict_file.py::test_predict_file_rejects_a_missing_required_field
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_out_of_range_field
+FAILED tests/test_predict_file.py::test_predict_file_leaves_no_output_when_a_later_row_is_invalid
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_invalid_prediction_category
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_incomplete_model_artifact
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_empty_sample_id
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_incompatible_model_artifact
+============================= 11 failed in 14.62s ==============================
+
+exit_code=1

@@ -1,4 +1,4 @@
-# Memoria de la práctica 3 — Inferencia y contratos
+# Desarrollo de la práctica 3 — Inferencia y contratos
 
 Daniel Alonso · Operación de Modelos · 14/10/2026
 
@@ -99,17 +99,56 @@ uv run python -m model_inference.predict_file \
 
 `=>` La práctica queda implementada y comprobada localmente. La ejecución tras clonar depende del modelo distribuido aparte por el profesor; las pruebas automatizadas no dependen de él.
 
+## Revisión de indicaciones y formato de evidencia
+
+`>` He revisado los 16 `README.md`/`readme.md` versionados de la semana 3, el README general, los dos guiones y los PDF [Assignment 3.1](../assignments/semana03_clase01_assignment.pdf) y [Assignment 3.2](../assignments/semana03_clase02_assignment.pdf) enlazados desde él. Las indicaciones de preparación y solución docente se distinguen de las que debe cumplir mi entrega sobre el starter.
+
+`>>` La sección «Entrega» del notebook original acepta una captura o una exportación que contenga tabla, respuestas A/B/C, orden, entrada inválida, contrato de salida y plan. El guion de clase 1 acepta una foto o enlace al lienzo. Los PDF piden tabla, mapa, dos casos inválidos y criterios; para clase 2, código, tests, CSV y nota técnica. No establecen capturas de pantalla obligatorias para esta entrega.
+
+`~>` He añadido una [exportación HTML del notebook con sus outputs](entrega/01-inferencia-y-contratos.html), además del notebook y el lienzo enlazado. El texto de la consola sirve de evidencia de tests y CLI, pero la exportación cubre también el contenido de la clase 1. En el lienzo he indicado expresamente que no se admiten ausentes y la etapa de rechazo de los dos casos inválidos.
+
+`~>` He corregido los comandos de tests del alumnado en el README de la semana para ejecutarlos en el entorno del starter. El entorno de `semana3/` instala y configura la solución docente, de modo que no lo uso como prueba de mi código. He comprobado por separado la suite docente: 11 tests correctos y Ruff correcto, sin modificar la referencia.
+
+`>>` Para comprobar el punto de partida, he ejecutado retrospectivamente el starter original del commit `b85a4f4` en una carpeta temporal: sus 11 tests fallan con los TODO incompletos. La salida está en [estado-inicial-starter.txt](entrega/evidencias/estado-inicial-starter.txt). Esta comprobación no se presenta como una ejecución anterior a mi implementación.
+
+`>` Convierto cada test original en una regla observable de la interfaz:
+
+| Test original | Regla que compruebo |
+| --- | --- |
+| `test_preprocess_preserves_feature_order` | El vector conserva las once posiciones. |
+| `test_predict_file_writes_predictions_for_kaggle_rows` | Una muestra válida produce categoría, confianza y versiones. |
+| `test_predict_file_writes_all_requested_rows` | Se procesan todas las muestras y se mantiene el esquema de salida. |
+| `test_predict_file_rejects_an_unknown_csv_column` | Rechazo columnas desconocidas sin crear salida. |
+| `test_predict_file_rejects_a_missing_required_field` | Rechazo campos obligatorios ausentes. |
+| `test_predict_file_rejects_an_out_of_range_field` | Rechazo mediciones fuera de rango. |
+| `test_predict_file_leaves_no_output_when_a_later_row_is_invalid` | Una fila posterior inválida impide cualquier CSV parcial. |
+| `test_predict_file_rejects_an_invalid_prediction_category` | La salida respeta las categorías permitidas. |
+| `test_predict_file_rejects_an_incomplete_model_artifact` | El artefacto incluye un clasificador compatible. |
+| `test_predict_file_rejects_an_empty_sample_id` | El identificador no puede estar vacío. |
+| `test_predict_file_rejects_an_incompatible_model_artifact` | El artefacto respeta nombres y orden de features. |
+
+`~>` Como mejora identificada para una versión futura, usaría un archivo temporal y un reemplazo atómico para proteger también frente a fallos de escritura. La implementación actual cumple la ausencia de salida parcial ante los errores de filas y predicción exigidos en el taller.
+
+`>>` Las pautas de trabajo en parejas, intercambio y debrief describen la dinámica presencial. No presento como realizada una revisión por otra pareja ni una participación en clase que no he verificado.
+
+`=>` Entrego una exportación de clase 1 y código, pruebas, salida CSV y esta nota técnica de clase 2. Mantengo el binario fuera de Git, no entreno durante la inferencia, no leo CSV desde `preprocess.py` y no cargo Joblib desde el CLI.
+
 ## Relación entre requisitos y entrega
 
 | Requisito | Archivo | Comprobación |
 | --- | --- | --- |
 | Distinción entre entrenamiento, artefacto y datos nuevos | `LIENZO.md` y notebook | Respuestas de la clase 1. |
-| Once campos, unidades, rangos y ejemplos | `LIENZO.md` | Tabla y entrada inválida. |
+| Once campos, unidades, rangos, ausentes y ejemplos | `LIENZO.md` | Tabla y dos entradas inválidas con etapa de rechazo. |
+| Captura o exportación de la clase 1 | Notebook y exportación HTML | Tabla, respuestas, vector, casos, salida y plan. |
 | Validación y comparación con dataclass | Notebook y `contracts.py` | Celdas ejecutadas y tests de contrato. |
 | Orden estable y versión del preprocesado | `preprocess.py` | Test original del vector. |
 | Artefacto compatible y predicción trazable | `inference.py` | Tests de carga y salida. |
 | CLI CSV sin resultados parciales ante errores | `predict_file.py` | Tests del comando y salida anterior conservada. |
 | Comando reproducible y cinco muestras | README del starter y CSV de evidencia | Ejecución real con el artefacto local. |
+
+## Siguiente paso
+
+`->` En la semana 4 empaquetaré este módulo en el bundle que pide la asignatura, conservando el orden de características, las categorías y las versiones. El manifiesto permitirá declarar esos metadatos junto al estimador sin modificar la inferencia de la semana 3.
 
 ## Referencias
 

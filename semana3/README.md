@@ -1,6 +1,6 @@
 # Operación de Modelos — MUIAAp
 
-**Mi entrega de la práctica 3:** [MEMORIA_PRACTICA_3.md](MEMORIA_PRACTICA_3.md),
+**Mi entrega de la práctica 3:** [DESARROLLO.md](DESARROLLO.md),
 con el desarrollo, el lienzo, el notebook ejecutado y las comprobaciones del módulo.
 
 Material reproducible para las clases de Operación de Modelos del Máster
@@ -51,23 +51,22 @@ uv run ruff check modules/03-inference-contracts/solutions
 uv run ruff format --check modules/03-inference-contracts/solutions
 ```
 
-La suite docente debe terminar con todos los tests en verde. Para ejecutar
-también los tests que recibe el alumnado:
+La suite docente anterior comprueba la referencia del profesor. Para revisar mi
+entrega hay que ejecutar los tests desde el starter, con su propio entorno:
 
 ```bash
-uv run pytest \
-  modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/tests
+cd modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter
+uv sync --frozen
+uv run pytest
+uv run ruff check src tests
+uv run ruff format --check src tests
 ```
 
-Estos últimos están diseñados para fallar mientras el `starter` conserve sus
-`TODO`; deben pasar cuando se complete la implementación de la clase 2. Para
-comprobar además su estilo y formato:
+El `pyproject.toml` de `semana3/` configura imports de `solutions/`; ejecutar
+los tests del alumnado desde ese entorno podría comprobar la referencia docente.
+El entorno del starter importa mi implementación de `src/model_inference`.
 
-```bash
-uv run ruff check \
-  modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/src \
-  modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/tests
-uv run ruff format --check \
-  modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/src \
-  modules/03-inference-contracts/exercises/01-local-inference/01.02-wine-quality-inference-module/problem/starter/tests
-```
+La evidencia de la clase 1 está en el notebook y su
+[exportación HTML con resultados](entrega/01-inferencia-y-contratos.html).
+El enunciado acepta «captura o exportación»; la clase 2 entrega código, tests,
+CSV y nota técnica. El proceso está explicado en [DESARROLLO.md](DESARROLLO.md).

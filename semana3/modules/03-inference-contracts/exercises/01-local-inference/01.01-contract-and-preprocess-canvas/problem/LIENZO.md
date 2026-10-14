@@ -10,21 +10,21 @@ Distingo los datos de entrenamiento, con mediciones y etiqueta `quality`, del ar
 
 ## Contrato de entrada
 
-| Campo | Tipo validado | Unidad asumida | Límite aceptado |
-| --- | --- | --- | --- |
-| `fixed_acidity` | `float` | g/L de ácido tartárico | 0–20 |
-| `volatile_acidity` | `float` | g/L de ácido acético | 0–2 |
-| `citric_acid` | `float` | g/L | 0–2 |
-| `residual_sugar` | `float` | g/L | 0–20 |
-| `chlorides` | `float` | g/L de NaCl | 0–1 |
-| `free_sulfur_dioxide` | `float` | mg/L | 0–100 |
-| `total_sulfur_dioxide` | `float` | mg/L | 0–300 |
-| `density` | `float` | g/cm³ | 0.98–1.01 |
-| `ph` | `float` | adimensional | 2.5–4.5 |
-| `sulphates` | `float` | g/L de K₂SO₄ | 0–3 |
-| `alcohol` | `float` | % vol. | 5–20 |
+| Campo | Tipo validado | Unidad asumida | Límite aceptado | ¿Admite ausentes? |
+| --- | --- | --- | --- | --- |
+| `fixed_acidity` | `float` | g/L de ácido tartárico | 0–20 | No |
+| `volatile_acidity` | `float` | g/L de ácido acético | 0–2 | No |
+| `citric_acid` | `float` | g/L | 0–2 | No |
+| `residual_sugar` | `float` | g/L | 0–20 | No |
+| `chlorides` | `float` | g/L de NaCl | 0–1 | No |
+| `free_sulfur_dioxide` | `float` | mg/L | 0–100 | No |
+| `total_sulfur_dioxide` | `float` | mg/L | 0–300 | No |
+| `density` | `float` | g/cm³ | 0.98–1.01 | No |
+| `ph` | `float` | adimensional | 2.5–4.5 | No |
+| `sulphates` | `float` | g/L de K₂SO₄ | 0–3 | No |
+| `alcohol` | `float` | % vol. | 5–20 | No |
 
-Uso los límites orientativos del notebook del profesor como límites inclusivos del contrato, no como una descripción exhaustiva de todos los vinos. Asumo las unidades habituales de Wine Quality indicadas en la tabla; el CSV solo contiene números y no permite comprobar sus unidades automáticamente. No convierto unidades durante la inferencia. En una ampliación pediría que se incluyeran explícitamente en los metadatos de entrada.
+Uso los límites orientativos del notebook del profesor como límites inclusivos del contrato, no como una descripción exhaustiva de todos los vinos. Asumo las unidades habituales de Wine Quality indicadas en la tabla; el CSV solo contiene números y no permite comprobar sus unidades automáticamente. La fuente original utiliza `pH`; la muestra docente ya lo ha adaptado a `ph` y a nombres `snake_case`. Exijo esos nombres canónicos en la cabecera, sin renombrados silenciosos durante la inferencia. No convierto unidades durante la inferencia. En una ampliación pediría que se incluyeran explícitamente en los metadatos de entrada.
 
 Todos los campos son obligatorios. Acepto cadenas numéricas procedentes del CSV y Pydantic las convierte a `float`; rechazo valores no numéricos, `NaN`, infinitos, campos ausentes y campos extra. `sample_id` es un texto no vacío validado por el CLI y lo excluyo del objeto del modelo.
 
@@ -71,6 +71,34 @@ Fila inválida: conservo la muestra y añado una columna prohibida.
 
 Espero un error que mencione `unexpected_field` antes de cargar o invocar el modelo. También considero inválido `ph=99`, porque queda fuera del rango 2.5–4.5.
 
+## Etapa de rechazo de los casos inválidos
+
+| Caso | Ejemplo | Razón | Etapa de rechazo |
+| --- | --- | --- | --- |
+| Columna desconocida | `unexpected_field="not allowed"` | La columna no pertenece al esquema. | Lectura de cabeceras en el CLI, antes de construir el vector y cargar el modelo. |
+| Valor fuera de rango | Primera muestra con `ph="99"` | El máximo del contrato es 4.5. | Construcción de `WineQualityRequest` con Pydantic, antes de preprocesar e inferir. |
+
+En el notebook, la columna extra se rechaza directamente con Pydantic para comprobar `extra="forbid"`; en el CLI se detecta antes, al validar la cabecera. Ambos caminos impiden inferir sobre una entrada inválida.
+
+Mi ejemplo completo de la segunda entrada inválida conserva `red-001` y sustituye únicamente su pH:
+
+```json
+{
+  "sample_id": "red-001",
+  "fixed_acidity": "7.4",
+  "volatile_acidity": "0.7",
+  "citric_acid": "0.0",
+  "residual_sugar": "1.9",
+  "chlorides": "0.076",
+  "free_sulfur_dioxide": "11.0",
+  "total_sulfur_dioxide": "34.0",
+  "density": "0.9978",
+  "ph": "99",
+  "sulphates": "0.56",
+  "alcohol": "9.4"
+}
+```
+
 ## Orden exacto del vector
 
 ```text
@@ -105,6 +133,13 @@ No interpreto la confianza como una garantía de acierto ni de calibración. Con
 
 Uso Pydantic en las fronteras de entrada y salida porque comprueba los datos en runtime. Uso `dataclass(frozen=True)` para guardar el vector y su versión después de validar. Una dataclass con anotaciones de tipo permite `ph=99` si no programo validación adicional; `frozen=True` limita las modificaciones, no comprueba rangos.
 
+## Mapa del flujo
+
+```text
+CSV → solicitud validada → preprocesado → vector de 11 valores
+    → artefacto compatible → predicción validada → CSV de salida
+```
+
 ## Tres criterios de aceptación y plan
 
 1. Un CSV con cinco muestras válidas produce cinco filas con el identificador, la categoría, la confianza y ambas versiones.
@@ -113,4 +148,4 @@ Uso Pydantic en las fronteras de entrada y salida porque comprueba los datos en 
 
 Implemento primero `contracts.py` para validar, después `preprocess.py` para ordenar, luego `inference.py` para cargar y predecir y, por último, `predict_file.py` para coordinar archivos. Mantengo esas responsabilidades separadas para poder reutilizar la inferencia sin depender de un CSV.
 
-He completado y ejecutado el [notebook de la clase 1](01-inferencia-y-contratos-alumno.ipynb). La explicación de la clase 2 y su ejecución real están en [MEMORIA_PRACTICA_3.md](../../../../../../MEMORIA_PRACTICA_3.md).
+He completado y ejecutado el [notebook de la clase 1](01-inferencia-y-contratos-alumno.ipynb). La explicación de la clase 2 y su ejecución real están en [DESARROLLO.md](../../../../../../DESARROLLO.md).
