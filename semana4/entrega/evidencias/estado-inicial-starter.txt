@@ -1,0 +1,71 @@
+Comando antes de implementar: uv run pytest --tb=short
+Entorno inicial resuelto por uv sync; antes de conservar el lock de S3.
+Código de salida: 1
+
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-8.4.2, pluggy-1.7.0
+rootdir: /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter
+configfile: pyproject.toml
+testpaths: tests
+collected 7 items
+
+tests/test_artifact.py FFF.                                              [ 57%]
+tests/test_predict_file.py FFF                                           [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_save_and_load_bundle_round_trip _____________________
+tests/test_artifact.py:50: in test_save_and_load_bundle_round_trip
+    manifest = create_manifest(estimator, "wine-quality-rf-v1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+________________ test_load_rejects_a_reordered_feature_contract ________________
+tests/test_artifact.py:73: in test_load_rejects_a_reordered_feature_contract
+    create_manifest(estimator, "wine-quality-rf-v1"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+________________ test_inference_rejects_an_unknown_model_label _________________
+tests/test_artifact.py:98: in test_inference_rejects_an_unknown_model_label
+    manifest=create_manifest(estimator, "bad-output-v1"),
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+___________________ test_predict_file_writes_a_validated_csv ___________________
+tests/test_predict_file.py:49: in test_predict_file_writes_a_validated_csv
+    write_bundle(bundle_path)
+tests/test_predict_file.py:41: in write_bundle
+    create_manifest(estimator, "wine-quality-rf-v1"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+_________________ test_predict_file_rejects_an_unknown_column __________________
+tests/test_predict_file.py:62: in test_predict_file_rejects_an_unknown_column
+    write_bundle(bundle_path)
+tests/test_predict_file.py:41: in write_bundle
+    create_manifest(estimator, "wine-quality-rf-v1"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+_________ test_predict_file_writes_nothing_when_a_later_row_is_invalid _________
+tests/test_predict_file.py:77: in test_predict_file_writes_nothing_when_a_later_row_is_invalid
+    write_bundle(bundle_path)
+tests/test_predict_file.py:41: in write_bundle
+    create_manifest(estimator, "wine-quality-rf-v1"),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/model_packaging/artifact.py:65: in create_manifest
+    raise NotImplementedError("Implementa create_manifest().")
+E   NotImplementedError: Implementa create_manifest().
+=========================== short test summary info ============================
+FAILED tests/test_artifact.py::test_save_and_load_bundle_round_trip - NotImpl...
+FAILED tests/test_artifact.py::test_load_rejects_a_reordered_feature_contract
+FAILED tests/test_artifact.py::test_inference_rejects_an_unknown_model_label
+FAILED tests/test_predict_file.py::test_predict_file_writes_a_validated_csv
+FAILED tests/test_predict_file.py::test_predict_file_rejects_an_unknown_column
+FAILED tests/test_predict_file.py::test_predict_file_writes_nothing_when_a_later_row_is_invalid
+========================= 6 failed, 1 passed in 0.80s ==========================

@@ -1,0 +1,66 @@
+Directorio de ejecución: /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter
+
+$ uv sync --frozen
+Checked 18 packages in 0.75ms
+Exit code: 0
+
+$ uv run pytest
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-8.4.2, pluggy-1.6.0
+rootdir: /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter
+configfile: pyproject.toml
+testpaths: tests
+collected 40 items
+
+tests/test_artifact.py ....                                              [ 10%]
+tests/test_delivery_validation.py .................................      [ 92%]
+tests/test_predict_file.py ...                                           [100%]
+
+=============================== warnings summary ===============================
+tests/test_artifact.py: 2 warnings
+tests/test_delivery_validation.py: 16 warnings
+tests/test_predict_file.py: 2 warnings
+  /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.venv/lib/python3.13/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 40 passed, 20 warnings in 1.40s ========================
+Exit code: 0
+
+$ uv run ruff check src tests
+All checks passed!
+Exit code: 0
+
+$ uv run ruff format --check src tests
+9 files already formatted
+Exit code: 0
+
+$ uv run python -m model_packaging.migrate_legacy_artifact --input /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/models/wine_quality_classifier.joblib --output /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/bundle
+Bundle generado sin reentrenar: /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/bundle
+Exit code: 0
+
+$ uv run python -m model_packaging.predict_file --bundle /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/bundle --input /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana3/assets/03-wine-quality/inference_samples.csv --output /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/wine_predictions.csv
+Predicciones guardadas: 5 -> /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/wine_predictions.csv
+Exit code: 0
+
+Comparación S3/S4: las cinco filas son idénticas (incluidas confianzas y versiones).
+Parámetros, clases y estado aprendido de todos los árboles: iguales tras migrar. No se ha reentrenado.
+
+$ uv run python -m model_packaging.predict_file --bundle /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/bundle --input /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/invalid.csv --output /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/no_partial.csv
+Error de inferencia: Fila 3: 1 validation error for WineQualityRequest
+ph
+  Input should be less than or equal to 4.5 [type=less_than_equal, input_value='99', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/less_than_equal
+Exit code: 2
+
+Comprobación: segunda fila inválida -> no existe no_partial.csv.
+
+$ uv run python -m model_packaging.predict_file --bundle /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/corrupt_bundle --input /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana3/assets/03-wine-quality/inference_samples.csv --output /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.tmp/verificacion-e8t2fgxr/no_partial.csv
+Error de inferencia: 1 validation error for ArtifactManifest
+preprocessing_version
+  Input should be 'wine-red-features-v1' [type=literal_error, input_value='wine-red-features-v2', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/literal_error
+Exit code: 2
+
+Comprobación: manifiesto incompatible rechazado aun sin binario; no se publica CSV.

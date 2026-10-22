@@ -19,6 +19,16 @@ La primera clase diseña el manifiesto y comprueba qué incompatibilidades deben
 rechazarse. La segunda implementa el guardado, la carga, la validación de
 inputs/outputs, una CLI local y pruebas básicas.
 
+## Mi entrega
+
+Mi trabajo está en la rama `tareas-semana4` y se documenta en
+[REPORT.md](REPORT.md), con el mismo formato de la semana 3. Incluye el
+[lienzo completado](modules/04-model-packaging/exercises/01-model-packaging/01.01-artifact-contract/problem/LIENZO.md),
+el [notebook ejecutado y exportado](entrega/01-artefacto-y-manifiesto.html),
+el manifiesto, la matriz de compatibilidad y las evidencias de la clase 2.
+Los comandos de mi implementación están en el
+[README del starter](modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/README.md).
+
 ## Material
 
 - [README y mapa de la unidad](modules/04-model-packaging/README.md)
@@ -51,5 +61,7 @@ uv sync
 uv run pytest
 ~~~
 
-El starter empieza rojo porque conserva los TODO del taller; debe quedar
-verde después de la implementación de la pareja.
+El starter original empieza rojo por los TODO del taller. En esta rama está
+completado; las evidencias del estado inicial y la verificación final están
+en [REPORT.md](REPORT.md). Los comandos de «Validación docente» prueban la
+referencia del profesor; para mi entrega utilizo los del starter.

@@ -1,0 +1,71 @@
+{
+  "fecha": "2026-10-22",
+  "rama": "tareas-semana4",
+  "python": "3.13.13",
+  "dependencias": {
+    "pydantic": "2.13.4",
+    "scikit-learn": "1.9.0",
+    "joblib": "1.5.3",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "pytest": "8.4.2",
+    "ruff": "0.16.1"
+  },
+  "artefacto_legacy": {
+    "archivo": "models/wine_quality_classifier.joblib",
+    "sha256": "55423a4af32faf2f27f9899db6bb04e181e9093b2d5ffc1d4c0923784cb6ec83",
+    "claves": [
+      "estimator",
+      "feature_names",
+      "model_version"
+    ],
+    "estimador": "RandomForestClassifier",
+    "classes": [
+      "acceptable",
+      "excellent",
+      "needs_review"
+    ]
+  },
+  "bundle": {
+    "archivos": {
+      "manifest.json": {
+        "sha256": "8dbad4583a6cc066a3c6fef81ae1a5a87e6d38e8d2db323fef138a2316bc49e1",
+        "bytes": 507
+      },
+      "model.joblib": {
+        "sha256": "45f46df5c0739be34611c239c7b57a40f7cba483d80d889ae833d98ce0a790cc",
+        "bytes": 3187602
+      }
+    },
+    "manifest": {
+      "schema_version": "wine-quality-bundle-v1",
+      "model_version": "wine-quality-rf-v1",
+      "preprocessing_version": "wine-red-features-v1",
+      "feature_names": [
+        "fixed_acidity",
+        "volatile_acidity",
+        "citric_acid",
+        "residual_sugar",
+        "chlorides",
+        "free_sulfur_dioxide",
+        "total_sulfur_dioxide",
+        "density",
+        "ph",
+        "sulphates",
+        "alcohol"
+      ],
+      "output_labels": [
+        "needs_review",
+        "acceptable",
+        "excellent"
+      ],
+      "estimator_type": "RandomForestClassifier"
+    }
+  },
+  "estado_estimador_igual": true,
+  "predicciones_identicas_a_semana3": 5,
+  "csv_sha256": "c02d8ac82e19a1267d098c1873b693d4629ac0aee17eb2282d69cd01b47d6df5",
+  "fuente_csv": "semana3/assets/03-wine-quality/inference_samples.csv",
+  "fuente_csv_sha256": "ae366e2042c79dad31dc4e5cd7873d3bf044e65691f5a259aa51d3e4b0125e52",
+  "nota": "Los SHA documentan lo ejecutado localmente; los binarios de models/ no se versionan."
+}

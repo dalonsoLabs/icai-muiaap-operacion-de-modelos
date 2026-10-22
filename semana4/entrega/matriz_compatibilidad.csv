@@ -1,0 +1,8 @@
+cambio,comprobacion,error_esperado,etapa_de_rechazo,csv_publicado
+Intercambiar density y alcohol en feature_names,Nombres y orden exactos,Orden de features incompatible,Manifiesto antes de Joblib,No
+preprocessing_version=wine-red-features-v2,Versión soportada,Versión de preprocesado incompatible,Manifiesto antes de Joblib,No
+output_labels incluye low,Categorías del contrato,Etiqueta desconocida,Manifiesto antes de Joblib,No
+Declarar RandomForestClassifier y guardar DummyClassifier,Clase real frente a estimator_type,Tipo de estimador incompatible,Después de deserializar y antes de inferir,No
+Estimador sin predict_proba,Métodos invocables,Interfaz incompleta,Después de deserializar y antes de inferir,No
+predict devuelve unknown,Contrato de respuesta,Categoría no permitida,Inferencia antes de escribir,No
+Segunda muestra ph=99,Rango de entrada [2.5; 4.5],Campo fuera de rango,Validación de filas antes de cargar el bundle,No

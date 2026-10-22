@@ -1,0 +1,16 @@
+tareas-semana4
+Checked 18 packages in 1ms
+........................................                                 [100%]
+=============================== warnings summary ===============================
+tests/test_artifact.py: 2 warnings
+tests/test_delivery_validation.py: 16 warnings
+tests/test_predict_file.py: 2 warnings
+  /Users/dalonsogomez/Developer/comillas/mlops/icai-semana4-tareas/semana4/modules/04-model-packaging/exercises/01-model-packaging/01.02-serializable-inference-module/problem/starter/.venv/lib/python3.13/site-packages/joblib/numpy_pickle.py:207: DeprecationWarning: Setting the shape on a NumPy array has been deprecated in NumPy 2.5.
+  As an alternative, you can create a new view using np.reshape (with copy=False if needed).
+    array.shape = self.shape
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+40 passed, 20 warnings in 2.25s
+All checks passed!
+9 files already formatted
+Predicciones guardadas: 5 -> .tmp/vscode_predictions.csv
