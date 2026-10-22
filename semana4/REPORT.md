@@ -112,6 +112,14 @@ uv run python -m model_packaging.predict_file \
 
 `=>` El empaquetado añade validación y trazabilidad sin alterar las cinco predicciones del modelo existente. La tabla redondea a seis decimales y el CSV conserva la precisión original.
 
+## Comprobación desde un clone limpio
+
+`>` He clonado el commit `d5471a2` de esta rama en un directorio temporal sin `models/` ni `.venv/`. He repetido la instalación con el lock, los 40 tests y Ruff. Después he migrado el modelo de S3 desde una ruta externa explícita y he ejecutado el CLI con el CSV de ese clone.
+
+`>>` La [salida del clone limpio](entrega/evidencias/clone-limpio.txt) registra todas las comprobaciones. Las cinco filas coinciden con la evidencia. He ejecutado también el notebook desde cero sin el artefacto legacy local: utiliza el fallback Dummy identificado y completa sus cuatro celdas sin errores.
+
+`=>` Los tests y el lienzo se reproducen sin el binario del profesor; la inferencia real requiere ese artefacto externo, como indican las instrucciones.
+
 ## Ejecución en Visual Studio Code
 
 `>` He abierto el worktree `icai-semana4-tareas` en una ventana de VS Code y he ejecutado desde su terminal integrada `uv sync --frozen`, los 40 tests, Ruff y el CLI con el bundle real. La terminal muestra la rama `tareas-semana4`.
